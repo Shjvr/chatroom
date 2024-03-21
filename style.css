@@ -1,26 +1,20 @@
-#chatbox {
+.chat-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.chat-messages {
   height: 300px;
-  border: 3.125px solid #242424;
-  overflow: auto;
-  padding: 100px;
+  overflow-y: scroll;
 }
 
-#input {
-  margin-top: 10px;
-  margin-left: 325px;
-  border: 3.125px solid #242424;
-  background-color: #292b2f;
+.chat-form input[type="text"] {
+  width: 70%;
+  padding: 10px;
 }
 
-#username {
-  border: 3.125px solid #242424;
-  background-color: #292b2f;
-}
-
-#send {
-  background-color: #292b2f;
-}
-
-body {
-  background-color: #292b2f;
+.chat-form button {
+  padding: 10px;
 }

@@ -1,23 +1,28 @@
-function sendMessage() {
-  var usernameElement = document.getElementById("username");
-  var inputElement = document.getElementById("input");
+// Connect to the server
+const socket = io();
 
-  var username = usernameElement.value.trim();
-  var message = inputElement.value.trim();
+// Listen for incoming messages
+socket.on('message', message => {
+  displayMessage(message);
+});
 
-  if (username && message) {
-    var chatboxElement = document.getElementById("chatbox");
-    var newMessageElement = document.createElement("p");
-    newMessageElement.textContent = username + ": " + message;
-    chatboxElement.appendChild(newMessageElement);
-
-    inputElement.value = "";
+// Handle form submission
+const chatForm = document.getElementById('chat-form');
+const messageInput = document.getElementById('message-input');
+chatForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const message = messageInput.value;
+  if (message.trim() !== '') {
+    socket.emit('chatMessage', message);
+    messageInput.value = '';
   }
-}
+});
 
-function handleKeyDown(event) {
-  if (event.key === "Enter") {
-    sendMessage();
-    event.preventDefault();
-  }
+// Display a new message
+function displayMessage(message) {
+  const chatMessages = document.getElementById('chat-messages');
+  const messageElement = document.createElement('div');
+  messageElement.innerText = message;
+  chatMessages.appendChild(messageElement);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 }
